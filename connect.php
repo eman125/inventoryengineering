@@ -41,5 +41,12 @@
 <body>
     <h1>Connected to database as</h1>
     <div><?php echo 'user = ', $user, '<br>database = ', $db; ?></div>
+
+    <form action="/action_page.php">
+        <label for="upcnum">UPC:</label>
+        <input type="text" id="upcnum" name="upcnum"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
 </body>
 </html>
