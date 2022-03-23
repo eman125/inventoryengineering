@@ -1,0 +1,21 @@
+replace specific values and column names for variables.
+
+For Admin/manager
+-Insert and remove products from product table.
+INSERT INTO product VALUES ('upc', 'on_hand', 'product_name');
+-make new locations
+INSERT INTO location VALUES ('location_name');
+
+
+
+For regular employee
+-find product info and location from upc
+SELECT * FROM product WHERE upc=072838311320;
+SELECT * FROM location WHERE upc=072838311320;
+
+-give a product a location. This first checks if there is a product already there. If so, it edits quantity. If not, it inserts a new line.
+SELECT * FROM stocked_product WHERE upc=072838311320 AND location=A040324;
+UPDATE stocked_product SET quantity='current+new' WHERE upc=072838311320 AND location=A040324;
+or if not already in table
+INSERT INTO stocked_product VALUES ('upc', 'location_name', 'quantity');
+
