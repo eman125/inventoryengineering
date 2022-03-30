@@ -11,7 +11,7 @@
         <div id="wrapper">
             <nav>
                 <div class="navlinks">
-                    <a class="logo" href="https://emmanuelhuitron.com/index.html">EH</a>
+                    <a class="logo" href="index.php">IE</a>
                     <a href="index.php">Home</a>
 					<a href="login.php">Login</a>
                 </div>

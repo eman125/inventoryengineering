@@ -10,7 +10,7 @@
        <div id="wrapper">
             <nav>
                 <div class="navlinks">
-                    <a class="logo" href="https://emmanuelhuitron.com/index.html">EH</a>
+                    <a class="logo" href="index.php">IE</a>
                    
 <a href='login.php'>Login</a>
 <a href='maint_menu.php'>Maintenance Menu</a>
@@ -53,7 +53,7 @@ $result -> free_result();
                 <div class="navlinks">
                     <h4>Emmanuel Huitron, Pedro Gonzalez, Kelsey Houghton, Tracey Taylor</h4>
                     <a href="mailto:temporary@notyet.com"> temporary@notyet.com</a><br>
-                    <i>Copyright © Us 2022</i>
+                    <i>Copyright ï¿½ Us 2022</i>
                 </div>
             </footer>
      
