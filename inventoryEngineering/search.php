@@ -49,11 +49,7 @@ if(isset($_POST['search']))
 			</form>
 		<?php
 	}
-	$upc = $_GET['upc'];
-	{	if ($upc== "" || !ctype_digit($upc) || $upc != 12)
-		{echo "Invalid UPC number!";}
-		
-	}
+	
 }
 ?>
 
