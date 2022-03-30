@@ -9,7 +9,7 @@
        <div id="wrapper">
             <nav>
                 <div class="navlinks">
-                    <a class="logo" href="index.php">IE</a>
+                    <a class="logo" href="https://emmanuelhuitron.com/index.html">EH</a>
                    
 <a href='login.php'>Login</a>
 <a href='maint_menu.php'>Maintenance Menu</a>
@@ -32,12 +32,13 @@ if ($result->num_rows > 0)
 {
     while ($row = $result->fetch_assoc())
 		{	
-$sqlproducts="SELECT * FROM products ";
+$sqlproducts="SELECT * FROM product ";
 $productsresultset = $conn-> query($sqlproducts);
-echo "<table  id='products'>
+echo "<table  id='product'>
 		<tr>
 			<th>UPC </th>
-			<th>Product_Name</th>
+			<th>Product Name</th>
+			<th>On Hand</th>
 			<th><a href='create_products.php'>Add Products</></th>
 		</tr>";
 while($productrow = $productsresultset -> fetch_array(MYSQLI_ASSOC))
@@ -60,7 +61,7 @@ $result -> free_result();
                 <div class="navlinks">
                     <h4>Emmanuel Huitron, Pedro Gonzalez, Kelsey Houghton, Tracey Taylor</h4>
                     <a href="mailto:temporary@notyet.com"> temporary@notyet.com</a><br>
-                    <i>Copyright ï¿½ Us 2022</i>
+                    <i>Copyright © Us 2022</i>
                 </div>
             </footer>
         
