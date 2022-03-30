@@ -1,52 +1,68 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Edit User Information</title>
+        <link href="inventory_files/main.css" rel="stylesheet">
+         <link href="inventory_files/style.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+    </head>    
+    <body> 
+       <div id="wrapper">
+            <nav>
+                <div class="navlinks">
+                    <a class="logo" href="https://emmanuelhuitron.com/index.html">EH</a>
+                   
+<a href='login.php'>Login</a>
+<a href='maint_menu.php'>Maintenance Menu</a>
+                </div>
+            </nav>
+                    <div>
+
+<br />
+<br /><br />
 
 <?php
-//echo phpinfo();
-require('connect.php'); //This command will use the connection information to start the process of getting data.
-
+require_once('connect.php');
 session_start();
- // echo $_SESSION['username'] . '<br>'. $_SESSION['password']. '<br>'; // This shows what is being passed
+if (isset($_SESSION['userName'])&&isset($_SESSION['userpassword']))
+{
 
- 
- $sqluser="SELECT `username`, `password` FROM user WHERE  access_level IN (1,2,3) AND  username  = '" . $_SESSION['username'] . "' AND password = '" . $_SESSION['password']. "'";
-		
-$resultuser = mysqli_query($conn, $sqluser);
+$sql="SELECT  *  FROM user WHERE access_level IN (3,4) AND username  = '" . $_SESSION['userName'] . "' AND   password = '" . $_SESSION['userpassword'] . "'";		
+$result = $conn-> query($sql);
+if ($result->num_rows > 0) 
+{
+    while ($row = $result->fetch_assoc())
+		{	
+$sqlproducts="SELECT * FROM products ";
+$productsresultset = $conn-> query($sqlproducts);
+echo "<table  id='products'>
+		<tr>
+			<th>UPC </th>
+			<th>Product_Name</th>
+			<th><a href='create_products.php'>Add Products</></th>
+		</tr>";
+while($productrow = $productsresultset -> fetch_array(MYSQLI_ASSOC))
+   {
+		echo "<tr>";
+				echo "<td>" . $productrow['upc'] . "</td>";
+				echo "<td>" . $productrow['product_name'] . "</td>";
+				echo "<td>" . $productrow['on_hand'] . "</td>";
+				echo "<td><a href = 'edit_products.php?id=" . $productrow['id'] . "'>Edit Product</a></td>";
+		echo "</tr>";
+  }
+echo "</table>";
 
-if ($resultuser -> num_rows > 0) {
-   while ($row = $resultuser->fetch_assoc()) {
-
- //write query for products table
-
- $sqlproduct = 'SELECT upc, product_name FROM products';
-
- //make query & get result
- $resultproducts = mysqli_query($conn, $sqlproduct);
-
-echo "<table border='1'>
- <tr>
- <th>UPC </th>
- <th>Product_Name</th>
- </tr>";
- 
-//var_dump($result); // you can use var_dump to see any results as a check
-
-while($row = $resultproducts -> fetch_array(MYSQLI_ASSOC))
-   {   
-   echo "<tr>";
-   echo "<td>" . $row['upc'] . "</td>";
-   echo "<td>" . $row['product_name'] . "</td>";
-   echo "</tr>";
-   }
-   echo "</table>";
-     mysqli_free_result($resultproducts);
+		}
+		}
+$result -> free_result();
 }
-} else {
-   echo "You are not authorized to see this page.";
-}
-  //clear $result from memory
-  mysqli_free_result($resultuser);
-
-  //close connection
-  mysqli_close($conn);
-
-
-?>
+?></div>          
+            <footer id="foot">
+                <div class="navlinks">
+                    <h4>Emmanuel Huitron, Pedro Gonzalez, Kelsey Houghton, Tracey Taylor</h4>
+                    <a href="mailto:temporary@notyet.com"> temporary@notyet.com</a><br>
+                    <i>Copyright © Us 2022</i>
+                </div>
+            </footer>
+        
+</body>
+</html>

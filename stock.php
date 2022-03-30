@@ -1,53 +1,93 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Products</title>		
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="inventory_files/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="inventory_files/style.css" />
+        <link href="inventory_files/main.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+    </head>    
+	<body> 
+	<div id="wrapper">
+	<nav>
+		<div class="navlinks">
+		<a class="logo" href="https://emmanuelhuitron.com/index.html">EH</a>
+		<a href='index.php'>Home</a> 		
+		<a href='login.php'>Login</a>
+		<a href='maint_menu.php'>Maintenance Menu</a>
+		</div>
+	</nav>
+		<div>
+
+		<br />
+		<br />
+		<br />
 
 <?php
+require_once('connect.php');
 session_start();
-require('connect.php'); //This command will use the connection information to start the process of getting data.
+if (isset($_SESSION['userName'])&&isset($_SESSION['userpassword']))
+{
 
- //write query for stocked_product table
- $sql = 'SELECT upc, product_name, location_name, on_hand FROM stocked_product';
+$sql="SELECT `username`, `password` FROM user WHERE access_level IN (1,2,4) AND username  = '" . $_SESSION['userName'] . "' AND   password = '" . $_SESSION['userpassword'] . "'";		
+$result = $conn-> query($sql);
+if ($result->num_rows > 0) 
+{
+    while ($row = $result->fetch_assoc())
+		{	
+$sqlstock = "SELECT * FROM stocked_product";
+$stockresultset = $conn-> query($sqlstock);
+echo "<table  id='stocked_product'>
+		<tr>
+		<th>UPC</th>
+		<th>Location Name</th>
+		<th>Quantity</th>
+		<th colspan='2'><a class='btn btn-secondary'  role='button' href = 'create_stocks.php'>Add Stock</a></th>
+	</tr>";
+while($stockrow = $stockresultset -> fetch_array(MYSQLI_ASSOC))
+   {
+		echo "<tr id='". $stockrow['id']."'>";
+		echo "<td>" . $stockrow['upc'] . "</td>";
+		echo "<td>" . $stockrow['location_name'] . "</td>";
+		echo "<td>" . $stockrow['quantity'] . "</td>";
+		echo "<td><a class='btn btn-primary' href = 'edit_stocks.php?id=" . $stockrow['id'] . "'>Edit</a></td>";
+		echo "<td><button class='btn btn-danger btn-sm remove'>Delete</button></td>";
+		echo "</tr>";
+  }
+echo "</table>";
 
- //make query & get result
- $result = mysqli_query($conn, $sql);
-
-
- //includes access level control
-$sql1 = "SELECT `username`, `password` FROM user WHERE  access_level = 1 AND username  = '" . $_SESSION['username'] . "' AND password = '" . $_SESSION['password']. "'";
-		
-		
-$result1 = mysqli_query($conn, $sql1);
-
-if ($result1->num_rows > 0) {
-   while ($row = $result->fetch_assoc()) {
-	   
-	   
-echo "<table border='1'>
- <tr>
- <th>UPC</th>
- <th>Product_Name</th>
- <th>Location_Name</th>
- <th>On_Hand</th>
- </tr>";
- 
-//var_dump($result); // you can use var_dump to see any results as a check
-
-while($row = $result -> fetch_array(MYSQLI_ASSOC))
-   {   
-   echo "<tr>";
-   echo "<td>" . $row['upc'] . "</td>";
-   echo "<td>" . $row['product_name'] . "</td>";
-   echo "<td>" . $row['location_name'] . "</td>";
-   echo "<td>" . $row['on_hand'] . "</td>";
-   echo "</tr>";
-   }
-   echo "</table>";
-   
-}}
-
-  //clear $result from memory
-  mysqli_free_result($result);
-
-  //close connection
-  mysqli_close($conn);
-
-
+		}
+		}
+$result -> free_result();
+}
 ?>
+<script type="text/javascript">    
+    $(".remove").click(function(){
+        var id = $(this).parents("tr").attr("id");
+        if(confirm('Are you sure to remove this record ?'))
+        {
+            $.ajax({
+               url: '',
+               type: 'GET',
+               data: {id: id},
+               error: function() {
+                  alert('Something is wrong');
+               },
+               success: function(data) {
+                    $("#"+id).remove();
+                    alert("Record removed successfully");  
+               }
+            });
+        }
+    });
+</script>
+           <footer id="foot">
+                <div class="navlinks">
+                    <h4>Emmanuel Huitron, Pedro Gonzalez, Kelsey Houghton, Tracey Taylor</h4>
+                    <a href="mailto:temporary@notyet.com"> temporary@notyet.com</a><br>
+                    <i>Copyright © Us 2022</i>
+                </div>
+            </footer>  
+           
+</body>
+</html>

@@ -1,52 +1,15 @@
 <?php
-    $user = 'root';
-    $pass = '';
-    $db = 'inventoryengineering';
+//$localhost = '192.168.0.151';
+$user =  'root';
+$password = '';
+$dbname = 'inventoryengineering';
+$conn = new mysqli("localhost",$user,$password ,$dbname);
 
-    //connect to database
-    $conn = mysqli_connect('localhost', $user, $pass, $db);
+// Check connection
+if ($conn -> connect_errno) {
+  echo "Failed to connect to MySQL: " . $conn -> connect_error;
+  exit();
+}
 
-    //check connection. NOT WORKING. If successful, $conn returns true
-    if(!$conn){ // dot . is for concatenation
-        echo 'Connection error: ' . mysqli_connect_error();
-    }
 
-    //write query for product table
-    $sql = 'SELECT upc, on_hand, product_name FROM product';
-
-    //make query & get result
-    $result = mysqli_query($conn, $sql);
-
-    //fetch the resulting rows as an array
-    $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    
-    //clear $result from memory
-    mysqli_free_result($result);
-
-    //close connection
-    mysqli_close($conn);
-
-    print_r($products);
-
-    //$dbconnection = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
-    //echo "Connection echo line";
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Inventory Manager</title>
-</head>
-
-<body>
-    <h1>Connected to database as</h1>
-    <div><?php echo 'user = ', $user, '<br>database = ', $db; ?></div>
-
-    <form action="/action_page.php">
-        <label for="upcnum">UPC:</label>
-        <input type="text" id="upcnum" name="upcnum"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-
-</body>
-</html>

@@ -1,39 +1,62 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Login</title>
+        <link href="inventory_files/main.css" rel="stylesheet">
+         <link href="inventory_files/style.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+    </head>
+    
+    <body> 
+       <div id="wrapper">
+            <nav>
+                <div class="navlinks">
+                    <a class="logo" href="https://emmanuelhuitron.com/index.html">EH</a>
+                   
+<a href='login.php'>Login</a>
+<a href='maint_menu.php'>Maintenance Menu</a>
+                </div>
+            </nav>
+                    <div>
 
+<br />
+<br /><br />
 <?php
-require('connect.php'); //This command will use the connection information to start the process of getting data.
+require_once('connect.php');
 
- //write query for user table
- $sql = 'SELECT username, password, email, access_level FROM user';
+$sql="SELECT `id`, `email`, `username`, `access_level`  FROM user";
+$result = $conn -> query($sql);
+// Numeric array
 
- //make query & get result
- $result = mysqli_query($conn, $sql);
-	
-echo "<table border='1'>
+echo "<table  id='users'>
  <tr>
- <th>Username </th>
- <th>Password</th>
- <th>Email</th>
- <th>Access_Level</th>
+  <th>Email</th>
+   <th>Username</th>
+    <th>Access Level</th>
+	    <th><a href='create_users.php'>Create User</a></th>
  </tr>";
- 
-//var_dump($result); // you can use var_dump to see any results as a check
 
 while($row = $result -> fetch_array(MYSQLI_ASSOC))
-   {   
-   echo "<tr>";
-   echo "<td>" . $row['username'] . "</td>";
-   echo "<td>" . $row['password'] . "</td>";
-   echo "<td>" . $row['email'] . "</td>";
-   echo "<td>" . $row['access_level'] . "</td>";
-   echo "</tr>";
+   {
+		echo "<tr>";
+		echo "<td>" . $row['email'] . "</td>";
+		echo "<td>" . $row['username'] . "</td>";
+		echo "<td>" . $row['access_level'] . "</td>";
+		echo "<td><a href = 'edit_users.php?id=" . $row['id'] . "'>Edit User</a></td>";
+		echo "</tr>";
    }
-   echo "</table>";
-
-  //clear $result from memory
-  mysqli_free_result($result);
-
-  //close connection
-  mysqli_close($conn);
-
-
+ echo "</table>";
+ // Free result set
+$result -> free_result();
 ?>
+</div>          
+            <footer id="foot">
+                <div class="navlinks">
+                    <h4>Emmanuel Huitron, Pedro Gonzalez, Kelsey Houghton, Tracey Taylor</h4>
+                    <a href="mailto:temporary@notyet.com"> temporary@notyet.com</a><br>
+                    <i>Copyright © Us 2022</i>
+                </div>
+            </footer>
+     
+           
+</body>
+</html>

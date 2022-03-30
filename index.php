@@ -12,7 +12,7 @@
             <nav>
                 <div class="navlinks">
                     <a class="logo" href="https://emmanuelhuitron.com/index.html">EH</a>
-                    <a href="https://emmanuelhuitron.com/index.html">Home</a>
+                    <a href="index.php">Home</a>
 					<a href="login.php">Login</a>
                 </div>
             </nav>
@@ -26,8 +26,8 @@
 
                 <div>
                     <h2>Software engineering website!</h2>
-                    <h3>Check out my personalthe site</h3>
-                    <p>This website will serve as a gui for our inventory management project
+                    <h3>Check out my personal site</h3>
+                    <p>This website will serve as a GUI for our inventory management project
                     </p>
                     <h3>How will this work?</h3>
                     <p>We'll figure it out as we go</p>
