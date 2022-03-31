@@ -11,8 +11,8 @@
         <div id="wrapper">
             <nav>
                 <div class="navlinks">
-                    <a class="logo" href="https://emmanuelhuitron.com/index.html">EH</a>
-                    <a href="https://emmanuelhuitron.com/index.html">Home</a>
+                    <a class="logo" href="index.php">IE</a>
+                    <a href="index.php">Home</a>
                 </div>
             </nav>
 
@@ -23,13 +23,13 @@
                     </div>
                 </div>
 
-            <div>
-		<form action="main_menu.php" method="post"> 
-		<p> <label for="userName">User Name:</label> <input type="text" name="userName" id="userName"> </p> 
-		<p> <label for="userpassword">Password:</label> <input type="text" name="userpassword" id="userpassword"> </p> 
-		<input type="submit" value="Submit"> </form>
-	        </div>
-</main>
+                <div>
+		        <form action="main_menu.php" method="post"> 
+		        <p> <label for="userName">User Name:</label> <input type="text" name="userName" id="userName"> </p> 
+		        <p> <label for="userpassword">Password:</label> <input type="text" name="userpassword" id="userpassword"> </p> 
+		        <input type="submit" value="Submit"> </form>
+	            </div>
+            </main>
 
             <footer id="foot">
                 <div class="navlinks">

@@ -20,7 +20,7 @@
             <main id="twocolumn">
                 <div id="leftcolumn">
                     <div>
-                        <p>Left column</p>
+                        <p></p>
                     </div>
                 </div>
 
