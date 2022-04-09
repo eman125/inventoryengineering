@@ -5,9 +5,9 @@
     $conn = new mysqli("localhost",$user,$password ,$dbname);
 
 	//calling variables
-	$upcVar = "";
-	$onHandVar = "";
-	$productNameVar = "";
+	$upcVar = '';
+	$onHandVar = '';
+	$productNameVar = '';
 
 	// Check connection
     if ($conn -> connect_errno) {
@@ -24,12 +24,20 @@
 		
 			//uses queary to get results
 			$query_run = mysqli_query($conn,$query);
-
-			while($row = mysqli_fetch_array($query_run))
+			
+			//checks if upc select returned any results
+			if (mysqli_num_rows($query_run)==0)
 			{
-				$upcVar = $row['upc'];
-				$onHandVar = $row['on_hand'];
-				$productNameVar = $row['product_name'];
+				$upcVar = 'No results';
+			}
+			else
+			{
+				while($row = mysqli_fetch_array($query_run))
+				{
+					$upcVar = $row['upc'];
+					$onHandVar = $row['on_hand'];
+					$productNameVar = $row['product_name'];
+				}
 			}
 
 			//clear $query_run from memory
