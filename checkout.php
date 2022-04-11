@@ -1,6 +1,9 @@
 <?php
 	session_start();
 	$_SESSION['cart'];
+	$_SESSION['upcArray'];
+	$_SESSION['amountArray'];
+	$_SESSION['cartCounter'];
 
 	$user =  'root';
     $password = '';
@@ -8,7 +11,7 @@
     $conn = new mysqli("localhost",$user,$password ,$dbname);
 
 	//1st dimension is product, 2nd is for amount to be sold
-	$productArray = array('empty');
+	$upcArray = array('empty');
 	$amountArray = array(0);
 
 	$cart = $_SESSION['cart'];
@@ -22,7 +25,9 @@
         exit();
     }
 
-	if(isset($_POST['submit']))
+	if(isset($_POST['destroy']))
+		session_destroy();
+	else if(isset($_POST['submit']))
 	{
 		//checks if input value is numeric before running sql query
 		if(is_numeric($_POST['upc']))
@@ -43,8 +48,8 @@
 					$productName = $row['product_name'];
 				}
 				$cartCounter++;
-				$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
-				$_SESSION['cart'] = $cart;
+				$_SESSION['cart'] = $_SESSION['cart'] . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
+				//$_SESSION['cart'] = $cart;
 			}
 		}
 		else
@@ -87,11 +92,15 @@
 				<input type="number" pattern="[0-9]" name="amount"/> <br/>
 				<input type="submit" name="submit" value="Submit">
 			</form>
+			<form action="" method="POST">
+				<label>have to click "destroy" twice for some reason</label>
+				<input type="submit" name="destroy" value="Destroy">
+			</form>
         </div>
 
 		<div style="border-style:solid;">
 			<h3 style="text-align:center;">Cart</h3>
-			<p><?php echo $cart; ?></p><br>
+			<p><?php echo $_SESSION['cart']; ?></p><br>
 		</div>
 	</main>
 
