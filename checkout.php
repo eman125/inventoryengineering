@@ -1,14 +1,23 @@
 <?php
+	session_start();
+	$_SESSION['cart'];
+
 	$user =  'root';
     $password = '';
     $dbname = 'inventoryengineering';
     $conn = new mysqli("localhost",$user,$password ,$dbname);
 
 	//1st dimension is product, 2nd is for amount to be sold
-	$productArray = array(array());
+	$productArray = array('empty');
+	$amountArray = array(0);
+
+	$cart = $_SESSION['cart'];
+	$cartCounter = 0;
+	$productName;
 
 	// Check connection
-    if ($conn -> connect_errno) {
+    if ($conn -> connect_errno)
+	{
         echo "Failed to connect to MySQL: " . $conn -> connect_error;
         exit();
     }
@@ -23,15 +32,23 @@
             //uses queary to get results
 			$query_run = mysqli_query($conn,$query);
 
-            while($row = mysqli_fetch_array($query_run))
+			if (mysqli_num_rows($query_run)==0)
 			{
-				$upcVar = $row['upc'];
-				$onHandVar = $row['on_hand'];
-				$productNameVar = $row['product_name'];
+				$cart = 'product not found';
+			}
+			else
+			{
+				while($row = mysqli_fetch_array($query_run))
+				{
+					$productName = $row['product_name'];
+				}
+				$cartCounter++;
+				$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
+				$_SESSION['cart'] = $cart;
 			}
 		}
 		else
-			$confirmText = "please enter numeric value";
+			$cart = "please enter numeric value";
 
 
         //close connection
@@ -66,13 +83,15 @@
 				<!--if type is "number", max/minlength don't work, php code checks for numeric-->
                 <label>upc:</label>
 				<input type="text" maxlength="13" minlength="12" name="upc" required/> <br/>
+				<label>amount:</label>
+				<input type="number" pattern="[0-9]" name="amount"/> <br/>
 				<input type="submit" name="submit" value="Submit">
 			</form>
         </div>
 
-		<div>
-			<p><?php echo $productName; ?></p><br>
-            <p><?php echo ''; ?></p>
+		<div style="border-style:solid;">
+			<h3 style="text-align:center;">Cart</h3>
+			<p><?php echo $cart; ?></p><br>
 		</div>
 	</main>
 
