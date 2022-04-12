@@ -39,7 +39,8 @@
 			//checks if query returned a value
 			if (mysqli_num_rows($query_run)==0)
 			{
-				$cart = 'product not found';
+				echo '<script>alert("product not found")</script>';
+				$cart = $_SESSION['cart'];
 			}
 			else
 			{
@@ -54,7 +55,10 @@
 			}
 		}
 		else
-			$cart = "please enter numeric value";
+		{
+			echo '<script>alert("please enter numeric value")</script>';
+			$cart = $_SESSION['cart'];
+		}
 
 
         //close connection
