@@ -1,9 +1,5 @@
 <?php
 	session_start();
-	$_SESSION['cart'];
-	$_SESSION['upcArray'];
-	$_SESSION['amountArray'];
-	$_SESSION['cartCounter'];
 
 	$user =  'root';
     $password = '';
@@ -14,7 +10,7 @@
 	$upcArray = array('empty');
 	$amountArray = array(0);
 
-	$cart = $_SESSION['cart'];
+	$cart = '';
 	$cartCounter = 0;
 	$productName;
 
@@ -26,7 +22,10 @@
     }
 
 	if(isset($_POST['destroy']))
+	{
 		session_destroy();
+		$cart = '';
+	}
 	else if(isset($_POST['submit']))
 	{
 		//checks if input value is numeric before running sql query
@@ -37,19 +36,21 @@
             //uses queary to get results
 			$query_run = mysqli_query($conn,$query);
 
+			//checks if query returned a value
 			if (mysqli_num_rows($query_run)==0)
 			{
 				$cart = 'product not found';
 			}
 			else
 			{
+				$cart = $_SESSION['cart'];
 				while($row = mysqli_fetch_array($query_run))
 				{
 					$productName = $row['product_name'];
 				}
 				$cartCounter++;
-				$_SESSION['cart'] = $_SESSION['cart'] . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
-				//$_SESSION['cart'] = $cart;
+				$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
+				$_SESSION['cart'] = $cart;
 			}
 		}
 		else
@@ -58,6 +59,13 @@
 
         //close connection
         mysqli_close($conn);
+	}
+	else
+	{
+	$_SESSION['cart'] = '';
+	$_SESSION['upcArray'] = array();
+	$_SESSION['amountArray'] = array();
+	$_SESSION['cartCounter'] = 0;
 	}
 ?>
 
@@ -93,14 +101,14 @@
 				<input type="submit" name="submit" value="Submit">
 			</form>
 			<form action="" method="POST">
-				<label>have to click "destroy" twice for some reason</label>
+				<br>
 				<input type="submit" name="destroy" value="Destroy">
 			</form>
         </div>
 
 		<div style="border-style:solid;">
 			<h3 style="text-align:center;">Cart</h3>
-			<p><?php echo $_SESSION['cart']; ?></p><br>
+			<p><?php echo $cart; ?></p><br>
 		</div>
 	</main>
 

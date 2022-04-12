@@ -14,13 +14,13 @@
 #foot { padding-top: 10px; padding-bottom: 10px;}
 
 
-
 .navlinks { margin-left: auto; margin-right: auto;
     width: 80%; min-width: 900px; }
 
 a.logo { font-family: 'Times New Roman', Times, serif;
     font-size: 2em;
     padding: 6px;}
+
 
 
 
@@ -43,6 +43,11 @@ nav { position: fixed;
     nav a:hover { background: #00afde;
         color: #ffffff; }
 
+main input { display: inline-block;
+    float: right; }
+main input[type="submit"] { display: inline-block;
+    float: left; }
+
 main { margin-top: 90px;
     margin-left: auto; margin-right: auto;
     margin-bottom: 16px;
@@ -53,6 +58,7 @@ main { margin-top: 90px;
     line-height: 1.5; }
 
 h2 { font-family: "Lucida Grande", sans-serif; }
+main h3 { font-family: "Lucida Grande", sans-serif; }
 h4 { font-weight: normal;
     font-family: sans-serif; 
     color: #6C6C6C; }
