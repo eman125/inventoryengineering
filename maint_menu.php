@@ -48,6 +48,8 @@ if ($result->num_rows > 0) {
 		else if($row['access_level'] == 3 )
 		{
 		echo"<tr><td><a href='products.php'>Products Page</a></td></tr>";
+		echo "<tr><td><a href='locations.php'>Locations</a></td></tr>";
+		echo "<tr><td><a href='managelocations.php'>Manage Locations</a></td></tr>";
 		}
 		else if ($row['access_level'] == 2 )
 		{ 

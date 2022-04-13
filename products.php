@@ -20,7 +20,10 @@
 
 <br />
 <br />
-<br />
+
+<main id="twocolumn">
+                <div id="leftcolumn">
+                    <div>
 
 <?php
 require_once('connect.php');
@@ -58,7 +61,11 @@ echo "</table>";
 		}
 $result -> free_result();
 }
-?></div>          
+?></div>
+	<div>
+	</div>
+</main>
+</div>
             <footer id="foot">
                 <div class="navlinks">
                     <h4>Emmanuel Huitron, Pedro Gonzalez, Kelsey Houghton, Tracey Taylor</h4>

@@ -54,6 +54,7 @@ if ($result->num_rows > 0) {
 		else if($row['access_level'] == 2 )
 		{
 			echo"<tr><td><a href='stock.php'>Stock Page</a></td></tr>";
+			echo "<tr><td><a href='locations.php'>Locations Page</a></td></tr>";
 		}
 		else if ($row['access_level'] == 1 )
 		{ 
