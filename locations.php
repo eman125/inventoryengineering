@@ -1,3 +1,30 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<title>Locations</title>
+			<link href="inventory_files/main.css" rel="stylesheet">
+			 <link href="inventory_files/style.css" rel="stylesheet">
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial scale=1.0">
+    </head>
+    
+    <body> 
+       <div id="wrapper">
+            <nav>
+                <div class="navlinks">
+                    <a class="logo" href="index.php">IE</a>
+					<a href="login.php">Login</a>
+					<a href='maint_menu.php'>Maintenance Menu</a>
+                </div>
+            </nav>
+                    <div>
+
+</head> 
+<body>
+<br />
+<br />
+<br />
+<br />
 
 <?php
 require('connect.php'); //This command will use the connection information to start the process of getting data.

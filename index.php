@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Inventory</title>
-        <link href="inventory_files/main.css" rel="stylesheet">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial scale=1.0">
+<html lang="en">
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<title>Home</title>
+			<link href="inventory_files/main.css" rel="stylesheet">
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial scale=1.0">
     </head>
 
     <body>  

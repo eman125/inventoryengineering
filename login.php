@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Inventory</title>
-        <link href="inventory_files/main.css" rel="stylesheet">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial scale=1.0">
+<html lang="en">
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<title>Inventory</title>
+			<link href="inventory_files/main.css" rel="stylesheet">
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial scale=1.0">
     </head>
     
     <body>  
@@ -25,7 +26,7 @@
 
                 <div>
 		        <form action="main_menu.php" method="post"> 
-		        <p> <label for="userName">User Name:</label> <input type="text" name="userName" id="userName"> </p> 
+		        <p> <label for="username">User Name:</label> <input type="text" name="username" id="username"> </p> 
 		        <p> <label for="userpassword">Password:</label> <input type="text" name="userpassword" id="userpassword"> </p> 
 		        <input type="submit" value="Submit"> </form>
 	            </div>

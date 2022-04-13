@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<title>Products</title>
+	<title>Stocked Products</title>
 	<link href="inventory_files/main.css" rel="stylesheet">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial scale=1.0">
@@ -13,8 +13,8 @@
 	<nav>
 		<div class="navlinks">
             <a class="logo" href="index.php">IE</a>
-            <a href="index.php">Home</a>
 			<a href="login.php">Login</a>
+			<a href='maint_menu.php'>Maintenance Menu</a>
         </div>
 	</nav>
 
@@ -24,9 +24,9 @@
     require_once('connect.php');
     session_start();
     
-    if (isset($_SESSION['userName'])&&isset($_SESSION['userpassword']))
+    if (isset($_SESSION['username'])&&isset($_SESSION['userpassword']))
     {
-        $sql="SELECT `username`, `password` FROM user WHERE access_level IN (1,2,4) AND username  = '" . $_SESSION['userName'] . "' AND   password = '" . $_SESSION['userpassword'] . "'";		
+        $sql="SELECT `username`, `password` FROM user WHERE access_level IN (1,2,4) AND username  = '" . $_SESSION['username'] . "' AND   password = '" . $_SESSION['userpassword'] . "'";		
         $result = $conn-> query($sql);
 
         if ($result->num_rows > 0) 

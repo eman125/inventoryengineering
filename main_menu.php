@@ -1,10 +1,11 @@
-
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Login</title>
-        <link href="inventory_files/main.css" rel="stylesheet">
-         <link href="inventory_files/style.css" rel="stylesheet">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial scale=1.0">
+<!DOCTYPE html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<title>Main Menu</title>
+			<link href="inventory_files/main.css" rel="stylesheet">
+			 <link href="inventory_files/style.css" rel="stylesheet">
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial scale=1.0">
     </head>
     
     <body> 
@@ -14,25 +15,23 @@
                     <a class="logo" href="index.php">IE</a>
                    <a href="index.php">Home</a>
 					<a href="login.php">Login</a>
+					<a href="search.php">Search</a>
                 </div>
             </nav>
-                    <div>
-
-</head> 
-<body>
+		<div>
 <br />
 <br />
 <br />
-<br />
+<br />	
 <?php
 require_once('connect.php');
 session_start();
-$_SESSION['userName'] = $_POST['userName'];
+$_SESSION['username'] = $_POST['username'];
 $_SESSION['userpassword'] = $_POST['userpassword'];
 
-//echo $_SESSION['userName'] . '<br>'.$_SESSION['userpassword']. '<br>';
+//echo $_SESSION['username'] . '<br>'.$_SESSION['userpassword']. '<br>';
 
-$sql="SELECT *  FROM user WHERE access_level IN (1,2,3,4) AND userName  = '" . $_SESSION['userName'] . "' AND   password ='" . $_SESSION['userpassword'] . "'";
+$sql="SELECT *  FROM user WHERE access_level IN (1,2,3,4) AND username  = '" . $_SESSION['username'] . "' AND   password ='" . $_SESSION['userpassword'] . "'";
 
 $result = $conn-> query($sql);
 echo "<table id='menus'>";
