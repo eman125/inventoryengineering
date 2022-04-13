@@ -44,11 +44,10 @@
 	            </tr>";
                 while($stockrow = $stockresultset -> fetch_array(MYSQLI_ASSOC))
                 {
-		            echo "<tr id='". $stockrow['id']."'>";
 		            echo "<td>" . $stockrow['upc'] . "</td>";
 		            echo "<td>" . $stockrow['location_name'] . "</td>";
 		            echo "<td>" . $stockrow['quantity'] . "</td>";
-		            echo "<td><a class='btn btn-primary' href = 'edit_stocks.php?id=" . $stockrow['id'] . "'>Edit</a></td>";
+		            echo "<td><a class='btn btn-primary' href = 'edit_stocks.php?id=" . $stockrow['upc'] . "'>Edit</a></td>";
 		            echo "<td><button class='btn btn-danger btn-sm remove'>Delete</button></td>";
 		            echo "</tr>";
                 }
