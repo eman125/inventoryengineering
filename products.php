@@ -44,7 +44,7 @@ echo "<table  id='product'>
 			<th>UPC </th>
 			<th>Product Name</th>
 			<th>On Hand</th>
-			<th><a href='create_products.php'>Add Products</></th>
+			<th><a href='add_product.php'>Add Products</></th>
 		</tr>";
 while($productrow = $productsresultset -> fetch_array(MYSQLI_ASSOC))
    {

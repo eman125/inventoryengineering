@@ -1,8 +1,6 @@
 <?php
-	$user =  'root';
-    $password = '';
-    $dbname = 'inventoryengineering';
-    $conn = new mysqli("localhost",$user,$password ,$dbname);
+require_once('connect.php');
+session_start();
 
 	//calling variables
 	$confirmText = "";
@@ -58,6 +56,7 @@
             <a class="logo" href="index.php">IE</a>
             <a href="index.php">Home</a>
 			<a href="login.php">Login</a>
+			<a href='maint_menu.php'>Maintenance Menu</a>
         </div>
 	</nav>
 
