@@ -34,6 +34,20 @@
 		//checks if input value is numeric before running sql query
 		if(is_numeric($_POST['upc']))
 		{
+			$cartCounter = $_SESSION['cartCounter'];
+			$upcArray = $_SESSION['upcArray'];
+			$amountArray = $_SESSION['amountArray'];
+
+			//checks if upc already exists in cart
+			for($i = 0; $i < count($upcArray); $i++)
+			{
+				if($upcArray[$i] == $_POST['upc'])
+				{
+					$amountArray[$i] = $amountArray[$i] + (int)$_POST['amount'];
+					$duplicateFlag = 1;
+				}
+			}
+
 			$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $_POST['upc'] . ';';
 
             //uses queary to get results
@@ -46,23 +60,12 @@
 				$cart = $_SESSION['cart'];
 			}
 			else
-			{
-				$cartCounter = $_SESSION['cartCounter'];
-				$upcArray = $_SESSION['upcArray'];
-
-				for($j = 0; $j < count($upcArray); $j++)
-				{
-					if($upcArray[$j] == $_POST['upc'])
-					{
-						$amountArray[$j] == $amountArray[$j] + (int)$_POST['amount'];
-						$duplicateFlag = 1;
-					}
-				}
-				
+			{	
 				if($duplicateFlag == 0)
 				{
 					$upcArray[$cartCounter] = $_POST['upc'];
 					$amountArray[$cartCounter] = $_POST['amount'];
+					$cartCounter++;
 				}
 				$_SESSION['upcArray'] = $upcArray;
 				$_SESSION['amountArray'] = $amountArray;
@@ -73,7 +76,12 @@
 				{
 					$productName = $row['product_name'];
 				}
-				$cartCounter++;
+
+				for($i = 0; $i < count($upcArray); $i++)
+				{
+					
+				}
+
 				$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
 				$_SESSION['cart'] = $cart;
 				$_SESSION['cartCounter'] = $cartCounter;
@@ -81,7 +89,7 @@
 				echo '<br><br><br><br>';
 				for($i = 0; $i < count($upcArray); $i++)
 				{
-					echo 'upc = ' . $upcArray[$i] . ' i = '. $i . ' cartCounter = ' . $cartCounter . '<br>';
+					echo 'upc = ' . $upcArray[$i] . ' total in cart = ' . $amountArray[$i] . ' i = '. $i . ' cartCounter = ' . $cartCounter . '<br>';
 				}
 			}
 		}
