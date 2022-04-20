@@ -100,10 +100,34 @@
 	}
 	else if(isset($_POST['checkout']))
 	{
-		$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $_POST['upc'] . ';';
+		$upcArray = $_SESSION['upcArray'];
+		$amountArray = $_SESSION['amountArray'];
+		$cart = '';
 
-            //uses queary to get results
+		for($i = 0; $i < count($upcArray); $i++)
+		{
+			$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $upcArray[$i] . ';';
+			//uses queary to get results
 			$query_run = mysqli_query($conn,$query);
+
+			while($row = mysqli_fetch_array($query_run))
+			{
+				$productOnHand = $row['on_hand'];
+			}
+			
+			$productOnHand = $productOnHand - $amountArray[$i];
+			$query = 'UPDATE product SET on_hand=' . $productOnHand . ' WHERE upc=' . $upcArray[$i] . ';';
+
+			if($conn->query($query) === TRUE)
+			{
+				$cart = $cart . '<br>On hand amount removed successfully<br>query: ' . $query;
+			}
+			else
+				$cart = 'Error: ' . $query . '<br>' . $conn->error;
+		}
+
+		session_destroy();
+		mysqli_close($conn);
 	}
 	else
 	{
@@ -111,7 +135,7 @@
 		$_SESSION['upcArray'] = array();
 		$_SESSION['amountArray'] = array();
 		$_SESSION['cartCounter'] = 0;
-		
+
 		//close connection
         mysqli_close($conn);
 	}
@@ -121,7 +145,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<title>Search</title>
+	<title>Checkout</title>
 	<link href="inventory_files/main.css" rel="stylesheet">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial scale=1.0">
