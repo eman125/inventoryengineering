@@ -10,6 +10,9 @@
 	$upcArray = array('upc');
 	$amountArray = array(0);
 
+	//DuplicateFlag will be 1 if the same upc already exists in the cart
+	$duplicateFlag = 0;
+
 	$cart = '';
 	$cartCounter = 0;
 	$productName;
@@ -47,8 +50,22 @@
 				$cartCounter = $_SESSION['cartCounter'];
 				$upcArray = $_SESSION['upcArray'];
 
-				$upcArray[$cartCounter] = $_POST['upc'];
+				for($j = 0; $j < count($upcArray); $j++)
+				{
+					if($upcArray[$j] == $_POST['upc'])
+					{
+						$amountArray[$j] == $amountArray[$j] + (int)$_POST['amount'];
+						$duplicateFlag = 1;
+					}
+				}
+				
+				if($duplicateFlag == 0)
+				{
+					$upcArray[$cartCounter] = $_POST['upc'];
+					$amountArray[$cartCounter] = $_POST['amount'];
+				}
 				$_SESSION['upcArray'] = $upcArray;
+				$_SESSION['amountArray'] = $amountArray;
 
 
 				$cart = $_SESSION['cart'];
