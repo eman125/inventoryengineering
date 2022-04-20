@@ -77,11 +77,6 @@
 					$productName = $row['product_name'];
 				}
 
-				for($i = 0; $i < count($upcArray); $i++)
-				{
-					
-				}
-
 				$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
 				$_SESSION['cart'] = $cart;
 				$_SESSION['cartCounter'] = $cartCounter;
@@ -103,12 +98,22 @@
         //close connection
         mysqli_close($conn);
 	}
+	else if(isset($_POST['checkout']))
+	{
+		$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $_POST['upc'] . ';';
+
+            //uses queary to get results
+			$query_run = mysqli_query($conn,$query);
+	}
 	else
 	{
-	$_SESSION['cart'] = '';
-	$_SESSION['upcArray'] = array();
-	$_SESSION['amountArray'] = array();
-	$_SESSION['cartCounter'] = 0;
+		$_SESSION['cart'] = '';
+		$_SESSION['upcArray'] = array();
+		$_SESSION['amountArray'] = array();
+		$_SESSION['cartCounter'] = 0;
+		
+		//close connection
+        mysqli_close($conn);
 	}
 ?>
 
@@ -152,6 +157,10 @@
 		<div style="border-style:solid;">
 			<h3 style="text-align:center;">Cart</h3>
 			<p><?php echo $cart; ?></p><br>
+			<form action="" method="POST">
+				<br>
+				<input type="submit" name="checkout" value="Checkout">
+			</form>
 		</div>
 	</main>
 
