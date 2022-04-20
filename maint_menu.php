@@ -1,28 +1,35 @@
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Inventory</title>
-        <link href="inventory_files/main.css" rel="stylesheet">
-         <link href="inventory_files/style.css" rel="stylesheet">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial scale=1.0">
-    </head>    
+<!DOCTYPE html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<title>Maintenance Menu</title>
+			<link href="inventory_files/main.css" rel="stylesheet">
+			 <link href="inventory_files/style.css" rel="stylesheet">
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial scale=1.0">
+    </head>
+	
     <body> 
        <div id="wrapper">
             <nav>
                 <div class="navlinks">
-                   <a href="index.php">Home</a>
+					<a class="logo" href="index.php">IE</a>
+					<a href="index.php">Home</a>
 					<a href="login.php">Login</a>
+					<a href="search.php">Search</a>
                 </div>
             </nav>
        <div>      
-					
-<br /> 
+				
 <br />
+<br />
+<br />
+<br />					
 
 <?php
 require_once('connect.php');
 session_start();
 
-$sql="SELECT * FROM user WHERE access_level IN (1,2,3,4) AND userName  = '" . $_SESSION['userName'] . "' AND   password ='" . $_SESSION['userpassword'] . "'";
+$sql="SELECT * FROM user WHERE access_level IN (1,2,3,4) AND username  = '" . $_SESSION['username'] . "' AND   password ='" . $_SESSION['userpassword'] . "'";
 
 $result = $conn-> query($sql);
 
@@ -41,6 +48,8 @@ if ($result->num_rows > 0) {
 		else if($row['access_level'] == 3 )
 		{
 		echo"<tr><td><a href='products.php'>Products Page</a></td></tr>";
+		echo "<tr><td><a href='locations.php'>Locations</a></td></tr>";
+		echo "<tr><td><a href='managelocations.php'>Manage Locations</a></td></tr>";
 		}
 		else if ($row['access_level'] == 2 )
 		{ 
@@ -50,6 +59,10 @@ if ($result->num_rows > 0) {
 		else if ($row['access_level'] == 1 )
 		{ 
 		echo "<tr><td><a href='stock.php'>Stocked Products Page</a></td></tr>";
+		}
+		else
+		{
+			echo "<tr><td>You are not authorized to access this page.</td></tr>";
 		}
 	}
 }
