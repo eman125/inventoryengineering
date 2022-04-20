@@ -7,7 +7,7 @@
     $conn = new mysqli("localhost",$user,$password ,$dbname);
 
 	//1st dimension is product, 2nd is for amount to be sold
-	$upcArray = array('empty');
+	$upcArray = array('upc');
 	$amountArray = array(0);
 
 	$cart = '';
@@ -44,6 +44,13 @@
 			}
 			else
 			{
+				$cartCounter = $_SESSION['cartCounter'];
+				$upcArray = $_SESSION['upcArray'];
+
+				$upcArray[$cartCounter] = $_POST['upc'];
+				$_SESSION['upcArray'] = $upcArray;
+
+
 				$cart = $_SESSION['cart'];
 				while($row = mysqli_fetch_array($query_run))
 				{
@@ -52,6 +59,13 @@
 				$cartCounter++;
 				$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
 				$_SESSION['cart'] = $cart;
+				$_SESSION['cartCounter'] = $cartCounter;
+
+				echo '<br><br><br><br>';
+				for($i = 0; $i < count($upcArray); $i++)
+				{
+					echo 'upc = ' . $upcArray[$i] . ' i = '. $i . ' cartCounter = ' . $cartCounter . '<br>';
+				}
 			}
 		}
 		else
