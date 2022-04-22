@@ -24,12 +24,6 @@
         exit();
     }
 
-	if(isset($_POST['destroy']))
-	{
-		session_destroy();
-		$cart = '';
-		mysqli_close($conn);
-	}
 	else if(isset($_POST['submit']))
 	{
 		//checks if input value is numeric before running sql query
