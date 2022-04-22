@@ -28,6 +28,7 @@
 	{
 		session_destroy();
 		$cart = '';
+		mysqli_close($conn);
 	}
 	else if(isset($_POST['submit']))
 	{
@@ -48,12 +49,66 @@
 				}
 			}
 
-			$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $_POST['upc'] . ';';
+			if($duplicateFlag == 0)
+			{
+				//makes query
+				$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $_POST['upc'] . ';';
+				//uses queary to get results
+				$query_run = mysqli_query($conn,$query);
+				//checks if query returned a value
+				if (mysqli_num_rows($query_run)==0)
+				{
+					echo '<script>alert("product not found")</script>';
+					$cart = $_SESSION['cart'];
+				}
+				else
+				{
+					$upcArray[$cartCounter] = $_POST['upc'];
+					$amountArray[$cartCounter] = $_POST['amount'];
+					$cartCounter++;
+					$_SESSION['upcArray'] = $upcArray;
+					$_SESSION['amountArray'] = $amountArray;
+					$_SESSION['cartCounter'] = $cartCounter;
+
+					//potentially consolidate this and line 61, and others?
+					$cart = $_SESSION['cart'];
+					while($row = mysqli_fetch_array($query_run))
+					{
+						$productName = $row['product_name'];
+					}
+					$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
+					$_SESSION['cart'] = $cart;
+				}
+			}
+			else
+			{
+				$cart = '';
+				$_SESSION['amountArray'] = $amountArray;
+
+				for($i = 0; $i < count($upcArray); $i++)
+				{
+					$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $upcArray[$i] . ';';
+					$query_run = mysqli_query($conn,$query);
+					while($row = mysqli_fetch_array($query_run))
+					{
+						$productName = $row['product_name'];
+					}
+					$cart = $cart . $productName . '<br>amount: ' . $amountArray[$i] . '<br>';
+				}
+			}
+
+			echo '<br><br><br><br>';
+			for($i = 0; $i < count($upcArray); $i++)
+			{
+				echo 'upc = ' . $upcArray[$i] . ' total in cart = ' . $amountArray[$i] . ' i = '. $i . ' cartCounter = ' . $cartCounter . '<br>';
+			}
+
+			//$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $_POST['upc'] . ';';
 
             //uses queary to get results
-			$query_run = mysqli_query($conn,$query);
+			//$query_run = mysqli_query($conn,$query);
 
-			//checks if query returned a value
+			/*---------checks if query returned a value--------
 			if (mysqli_num_rows($query_run)==0)
 			{
 				echo '<script>alert("product not found")</script>';
@@ -86,7 +141,7 @@
 				{
 					echo 'upc = ' . $upcArray[$i] . ' total in cart = ' . $amountArray[$i] . ' i = '. $i . ' cartCounter = ' . $cartCounter . '<br>';
 				}
-			}
+			} */
 		}
 		else
 		{
