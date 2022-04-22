@@ -28,6 +28,7 @@
 	{
 		session_destroy();
 		$cart = '';
+		mysqli_close($conn);
 	}
 	else if(isset($_POST['submit']))
 	{
@@ -48,43 +49,51 @@
 				}
 			}
 
-			$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $_POST['upc'] . ';';
-
-            //uses queary to get results
-			$query_run = mysqli_query($conn,$query);
-
-			//checks if query returned a value
-			if (mysqli_num_rows($query_run)==0)
+			if($duplicateFlag == 0)
 			{
-				echo '<script>alert("product not found")</script>';
-				$cart = $_SESSION['cart'];
-			}
-			else
-			{	
-				if($duplicateFlag == 0)
+				//makes query
+				$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $_POST['upc'] . ';';
+				//uses queary to get results
+				$query_run = mysqli_query($conn,$query);
+				//checks if query returned a value
+				if (mysqli_num_rows($query_run)==0)
+				{
+					echo '<script>alert("product not found")</script>';
+					$cart = $_SESSION['cart'];
+				}
+				else
 				{
 					$upcArray[$cartCounter] = $_POST['upc'];
 					$amountArray[$cartCounter] = $_POST['amount'];
 					$cartCounter++;
+					$_SESSION['upcArray'] = $upcArray;
+					$_SESSION['amountArray'] = $amountArray;
+					$_SESSION['cartCounter'] = $cartCounter;
+
+					//potentially consolidate this and line 61, and others?
+					$cart = $_SESSION['cart'];
+					while($row = mysqli_fetch_array($query_run))
+					{
+						$productName = $row['product_name'];
+					}
+					$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
+					$_SESSION['cart'] = $cart;
 				}
-				$_SESSION['upcArray'] = $upcArray;
+			}
+			else
+			{
+				$cart = '';
 				$_SESSION['amountArray'] = $amountArray;
 
-
-				$cart = $_SESSION['cart'];
-				while($row = mysqli_fetch_array($query_run))
-				{
-					$productName = $row['product_name'];
-				}
-
-				$cart = $cart . $productName . '<br>amount: ' . $_POST['amount'] . '<br>';
-				$_SESSION['cart'] = $cart;
-				$_SESSION['cartCounter'] = $cartCounter;
-
-				echo '<br><br><br><br>';
 				for($i = 0; $i < count($upcArray); $i++)
 				{
-					echo 'upc = ' . $upcArray[$i] . ' total in cart = ' . $amountArray[$i] . ' i = '. $i . ' cartCounter = ' . $cartCounter . '<br>';
+					$query = 'SELECT upc, on_hand, product_name FROM product WHERE upc=' . $upcArray[$i] . ';';
+					$query_run = mysqli_query($conn,$query);
+					while($row = mysqli_fetch_array($query_run))
+					{
+						$productName = $row['product_name'];
+					}
+					$cart = $cart . $productName . '<br>amount: ' . $amountArray[$i] . '<br>';
 				}
 			}
 		}
@@ -93,7 +102,6 @@
 			echo '<script>alert("please enter numeric value")</script>';
 			$cart = $_SESSION['cart'];
 		}
-
 
         //close connection
         mysqli_close($conn);
@@ -120,7 +128,7 @@
 
 			if($conn->query($query) === TRUE)
 			{
-				$cart = $cart . '<br>On hand amount removed successfully<br>query: ' . $query;
+				$cart = $cart . 'on hand amount of: ' . $amountArray[$i] .  ' ' . $upcArray[$i] . ' removed successfully<br>';
 			}
 			else
 				$cart = 'Error: ' . $query . '<br>' . $conn->error;
@@ -172,9 +180,9 @@
 				<input type="number" pattern="[0-9]" name="amount"/> <br/>
 				<input type="submit" name="submit" value="Submit">
 			</form>
-			<form action="" method="POST">
+			<form action="checkout.php" method="POST">
 				<br>
-				<input type="submit" name="destroy" value="Destroy">
+				<input type="submit" name="" value="Destroy">
 			</form>
         </div>
 
