@@ -16,14 +16,27 @@ session_start();
 		//checks if input value is numeric before running sql query
 		if(is_numeric($_POST['upc']))
 		{
-            //make string with passed values
-            $passedVal = '\'' . $_POST['upc'] . '\', ' . $_POST['onHand'] . ', \'' . $_POST['productName'] . '\'';
-
-			$query = 'INSERT INTO product (upc, on_hand, product_name) VALUES (' . $passedVal . ');';
-		
+			//make string with passed values (commented out due to syntax confusion - Tracey)
+            // $passedVal = '\'' . $_POST['upc'] . '\', ' . $_POST['onHand'] . ', \'' . $_POST['productName'] . '\'';
+			// $query = 'INSERT INTO product (upc, on_hand, product_name) VALUES (' . $passedVal . ');';
+			
+			$upc= $_POST['upc'];
+			$productName= $_POST['productName'];
+			$onHand= $_POST['onHand'];	
+			$available = $_POST['availabilityStatus'];
+			
+			$query = "INSERT INTO product (upc, on_hand, product_name, available)
+			VALUES (
+			'$upc',
+			'$onHand',
+			'$productName',	
+			'$available'
+			)";
+			
+			
             if($conn->query($query) === TRUE)
             {
-                $confirmText = "New record created successfully";
+                $confirmText = "New record created successfully.";
             } 
             else 
             {
@@ -65,12 +78,20 @@ session_start();
 			<h3>Inventory Database: Enter UPC number, on hand number, and name</h3>
 			<form action="" method="POST">
 				<!--if type is "number", max/minlength don't work, php code checks for numeric-->
-                <label>upc:</label>
+                <label>UPC:</label>
 				<input type="text" maxlength="13" minlength="12" name="upc" required/> <br/>
-                <label>on hand:</label>
+                <label>On Hand:</label>
                 <input type="number" pattern="[0-9]" name="onHand" required/> <br/>
-                <label>product name:</label>
+                <label>Product Name:</label>
                 <input type="text" maxlength="255" name="productName" required/> <br/>
+				<label>Available:</label><br/>
+				<input type="radio" name="availabilityStatus" value="1">
+				<label> Yes </label>
+				<br/>
+				<input type="radio" name="availabilityStatus" value="0">
+				<label> No </label>
+				<br/>
+				<br/>
 				<input type="submit" name="submit" value="Submit">
 			</form>
         </div>
