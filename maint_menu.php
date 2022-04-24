@@ -44,6 +44,7 @@ if ($result->num_rows > 0) {
 		echo "<tr><td><a href='products.php'>Products Page</a></td></tr>";
 		echo "<tr><td><a href='stock.php'>Stocked Products Page</a></td></tr>";
 		echo "<tr><td><a href='locations.php'>Locations Page</a></td></tr>";
+		echo"<tr><td><a href='checkout.php'>Checkout Page</a></td></tr>";
 		}
 		else if($row['access_level'] == 3 )
 		{
@@ -58,7 +59,7 @@ if ($result->num_rows > 0) {
 		}
 		else if ($row['access_level'] == 1 )
 		{ 
-		echo "<tr><td><a href='stock.php'>Stocked Products Page</a></td></tr>";
+		echo "<tr><td><a href='checkout.php'>Checkout Page</a></td></tr>";
 		}
 		else
 		{
