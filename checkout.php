@@ -128,7 +128,10 @@
 				$cart = 'Error: ' . $query . '<br>' . $conn->error;
 		}
 
-		session_destroy();
+		$_SESSION['cart'] = '';
+		$_SESSION['upcArray'] = array();
+		$_SESSION['amountArray'] = array();
+		$_SESSION['cartCounter'] = 0;
 		mysqli_close($conn);
 	}
 	else
