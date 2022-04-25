@@ -18,8 +18,11 @@
         </div>
 	</nav>
 
-	<main id="twocolumn">
-		<div id="leftcolumn">
+<div>
+<br />
+<br />
+<br />
+
 <?php
     require_once('connect.php');
     session_start();
@@ -40,7 +43,7 @@
 		            <th>UPC</th>
 		            <th>Location Name</th>
 		            <th>Quantity</th>
-		            <th colspan='2'><a class='btn btn-secondary'  role='button' href = 'create_stocks.php'>Add Stock</a></th>
+		            <th colspan='2'><a class='btn btn-secondary'  role='button' href = 'add_stock.php'>Add Stock</a></th>
 	            </tr>";
                 while($stockrow = $stockresultset -> fetch_array(MYSQLI_ASSOC))
                 {
@@ -78,12 +81,7 @@
         }
     });
 </script>
-        </div>
-
-		<div>
-			<!--right column not being used-->
-		</div>
-	</main>
+</div>
 
 	<footer id="foot">
         <div class="navlinks">

@@ -52,7 +52,7 @@ while($productrow = $productsresultset -> fetch_array(MYSQLI_ASSOC))
 				echo "<td>" . $productrow['upc'] . "</td>";
 				echo "<td>" . $productrow['product_name'] . "</td>";
 				echo "<td>" . $productrow['on_hand'] . "</td>";
-				echo "<td><a href = 'edit_products.php?id=" . $productrow['upc'] . "'>Edit Product</a></td>";
+				echo "<td><a href = 'edit_products.php?upc=" . $productrow['upc'] . "'>Edit Product</a></td>";
 		echo "</tr>";
   }
 echo "</table>";

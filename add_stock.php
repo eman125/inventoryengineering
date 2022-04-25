@@ -1,6 +1,8 @@
 <?php
-require_once('connect.php');
-session_start();
+	$user =  'root';
+    $password = '';
+    $dbname = 'inventoryengineering';
+    $conn = new mysqli("localhost",$user,$password ,$dbname);
 
 	//calling variables
 	$confirmText = "";
@@ -16,27 +18,14 @@ session_start();
 		//checks if input value is numeric before running sql query
 		if(is_numeric($_POST['upc']))
 		{
-			//make string with passed values (commented out due to syntax confusion - Tracey)
-            // $passedVal = '\'' . $_POST['upc'] . '\', ' . $_POST['onHand'] . ', \'' . $_POST['productName'] . '\'';
-			// $query = 'INSERT INTO product (upc, on_hand, product_name) VALUES (' . $passedVal . ');';
-			
-			$upc= $_POST['upc'];
-			$productName= $_POST['productName'];
-			$onHand= $_POST['onHand'];	
-			$available = $_POST['availabilityStatus'];
-			
-			$query = "INSERT INTO product (upc, on_hand, product_name, available)
-			VALUES (
-			'$upc',
-			'$onHand',
-			'$productName',	
-			'$available'
-			)";
-			
-			
+            //make string with passed values
+            $passedVal = '\'' . $_POST['upc'] . '\', ' . $_POST['location_name'] . ', \'' . $_POST['quantity'] . '\'';
+
+			$query = 'INSERT INTO stocked_product (upc, location_name, quantity) VALUES (' . $passedVal . ');';
+		
             if($conn->query($query) === TRUE)
             {
-                $confirmText = "New record created successfully.";
+                $confirmText = "New record created successfully";
             } 
             else 
             {
@@ -56,7 +45,7 @@ session_start();
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<title>Add Product</title>
+	<title>Add Stock</title>
 	<link href="inventory_files/main.css" rel="stylesheet">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial scale=1.0">
@@ -78,20 +67,12 @@ session_start();
 			<h3>Inventory Database: Enter UPC number, on hand number, and name</h3>
 			<form action="" method="POST">
 				<!--if type is "number", max/minlength don't work, php code checks for numeric-->
-                <label>UPC:</label>
+                <label>upc:</label>
 				<input type="text" maxlength="13" minlength="12" name="upc" required/> <br/>
-                <label>On Hand:</label>
-                <input type="number" pattern="[0-9]" name="onHand" required/> <br/>
-                <label>Product Name:</label>
-                <input type="text" maxlength="255" name="productName" required/> <br/>
-				<label>Available:</label><br/>
-				<input type="radio" name="availabilityStatus" value="1">
-				<label> Yes </label>
-				<br/>
-				<input type="radio" name="availabilityStatus" value="0">
-				<label> No </label>
-				<br/>
-				<br/>
+                <label>location:</label>
+                <input type="text" maxlength="255" name="location_name" required/> <br/>
+				<label>quantity:</label>
+                <input type="number" pattern="[0-9]" name="quantity" required/> <br/>
 				<input type="submit" name="submit" value="Submit">
 			</form>
         </div>
@@ -105,7 +86,7 @@ session_start();
         <div class="navlinks">
             <h4>Emmanuel Huitron, Pedro Gonzalez, Kelsey Houghton, Tracey Taylor</h4>
             <a href="mailto:temporary@notyet.com"> temporary@notyet.com</a><br>
-            <i>Copyright Â© Us 2022</i>
+            <i>Copyright © Us 2022</i>
         </div>
     </footer>
 </div>
