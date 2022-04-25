@@ -68,7 +68,7 @@ $result -> free_result();
         if(confirm('Are you sure you want to remove this record ?'))
         {
             $.ajax({
-               url: '',
+               url: 'delete_users.php',
                type: 'GET',
                data: {id: id},
                error: function() {
