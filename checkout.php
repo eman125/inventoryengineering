@@ -1,10 +1,6 @@
 <?php
+	require_once('connect.php');
 	session_start();
-
-	$user =  'root';
-    $password = '';
-    $dbname = 'inventoryengineering';
-    $conn = new mysqli("localhost",$user,$password ,$dbname);
 
 	//1st dimension is product, 2nd is for amount to be sold
 	$upcArray = array('upc');
@@ -163,6 +159,7 @@
             <a class="logo" href="index.php">IE</a>
             <a href="index.php">Home</a>
 			<a href="login.php">Login</a>
+			<a href='maint_menu.php'>Maintenance Menu</a>
         </div>
 	</nav>
 
