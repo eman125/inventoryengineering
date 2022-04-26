@@ -4,6 +4,7 @@
 			<title>Products</title>
 			<link href="inventory_files/main.css" rel="stylesheet">
 			 <link href="inventory_files/style.css" rel="stylesheet">
+			 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 			<meta charset="utf-8">
 			<meta name="viewport" content="width=device-width, initial scale=1.0">
     </head>    
@@ -44,7 +45,7 @@ echo "<table  id='product'>
 			<th>UPC </th>
 			<th>Product Name</th>
 			<th>On Hand</th>
-			<th><a href='add_product.php'>Add Products</></th>
+			<th><a class='btn btn-secondary'  role='button' href = 'add_product.php'>Add Products</></th>
 		</tr>";
 while($productrow = $productsresultset -> fetch_array(MYSQLI_ASSOC))
    {
@@ -52,7 +53,8 @@ while($productrow = $productsresultset -> fetch_array(MYSQLI_ASSOC))
 				echo "<td>" . $productrow['upc'] . "</td>";
 				echo "<td>" . $productrow['product_name'] . "</td>";
 				echo "<td>" . $productrow['on_hand'] . "</td>";
-				echo "<td><a href = 'edit_products.php?upc=" . $productrow['upc'] . "'>Edit Product</a></td>";
+				echo "<td><a class='btn btn-primary' href = 'edit_products.php?upc=" . $productrow['upc'] . "'>Edit Product</a></td>";
+				echo "<td><button class='btn btn-danger btn-sm remove'>Delete</button></td>";
 		echo "</tr>";
   }
 echo "</table>";
