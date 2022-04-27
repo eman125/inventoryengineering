@@ -24,7 +24,7 @@
             
 		        <form action="main_menu.php" method="post"> 
 		        <p> <label for="username">User Name:</label> <input type="text" name="username" id="username"> </p> 
-		        <p> <label for="userpassword">Password:</label> <input type="text" name="userpassword" id="userpassword"> </p> 
+		        <p> <label for="userpassword">Password:</label> <input type="password" name="userpassword" id="userpassword"> </p> 
 		        <input type="submit" value="Submit"> </form>
 	        </div>
 

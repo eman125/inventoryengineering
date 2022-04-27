@@ -15,6 +15,7 @@
                     <a class="logo" href="index.php">IE</a>
                     <a href="index.php">Home</a>
 					<a href="login.php">Login</a>
+                    <a href="search.php">Search</a>
                 </div>
             </nav>
         
